@@ -1,1 +1,1 @@
-web: ng servegit
+web: node server.js
