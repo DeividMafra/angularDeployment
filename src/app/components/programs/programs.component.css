@@ -1,0 +1,19 @@
+.material-icons {
+  font-size: 1.2rem;
+}
+
+.material-icons.edit {
+  font-size: 1.2rem;
+  color: rgb(0, 47, 220);
+  cursor: pointer;
+}
+
+.material-icons.delete {
+  font-size: 1.2rem;
+  color: rgb(220, 0, 0);
+  cursor: pointer;
+}
+
+.full-width {
+  width: 100%;
+}
