@@ -10,8 +10,12 @@ import { TeachersComponent } from './components/teachers/teachers.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
+import { StudentsComponent } from './components/students/students.component';
+import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
+import { ClassesComponent } from './components/classes/classes.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,9 @@ import { HomeComponent } from './components/home/home.component';
     NavBarComponent,
     ProgramsComponent,
     TeachersComponent,
-    HomeComponent
+    StudentsComponent,
+    HomeComponent,
+    ClassesComponent
   ],
   imports: [
     BrowserModule,
@@ -27,10 +33,12 @@ import { HomeComponent } from './components/home/home.component';
     BrowserAnimationsModule,
     MatSelectModule,
     MatInputModule,
+    HttpClientModule, 
+    FormsModule,
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
