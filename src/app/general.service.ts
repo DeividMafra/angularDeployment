@@ -54,6 +54,7 @@ export class GeneralService {
         'Content-Type': 'application/json',
       })
     };
+    console.log(JSON.stringify(data));
     return this.http.put(this.api + collection + '/' + id, JSON.stringify(data), httpOptions);
   }
 

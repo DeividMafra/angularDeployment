@@ -16,6 +16,9 @@ import { DatePipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { ClassesComponent } from './components/classes/classes.component';
+// import { ActivityComponent } from './components/activity/activity.component';
+import { GradeComponent } from './components/grade/grade.component';
+import { CourseWorkComponent } from './components/course-work/course-work.component';
 
 @NgModule({
   declarations: [
@@ -23,9 +26,13 @@ import { ClassesComponent } from './components/classes/classes.component';
     NavBarComponent,
     ProgramsComponent,
     TeachersComponent,
+    // ActivityComponent,
+    GradeComponent,
+    CourseWorkComponent,
     StudentsComponent,
     HomeComponent,
     ClassesComponent
+
   ],
   imports: [
     BrowserModule,
