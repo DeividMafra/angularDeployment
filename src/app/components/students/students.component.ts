@@ -58,7 +58,7 @@ export class StudentsComponent implements OnInit {
 		this.service.getService(url).subscribe(
 			(res) => {
 				console.log(res)
-				if (res.code == 'Ok') {					
+				if (res.code == 'Ok') {
 					this.studentList = res.data;
 				}
 			},
@@ -72,33 +72,36 @@ export class StudentsComponent implements OnInit {
 	 * @author Diego.Perez
 	 * @date 04/01/2020
 	 */
-	onSubmit() {
-		let url:string;
-		if (!this.student._id) {
-			console.log(this.student._id);
-			url = 'student';
-		}else {
-			url = 'student/update';
-		}
-		console.log(url)
-		this.service.postService(url, this.student).subscribe(
-			(res) => {
-				console.log(res);
-				this.loadStudents();
-				this.student = new Student();
-			},
-			(err) => {
-				console.log(err);
+	onSubmit(studentForm) {
+		if (studentForm.valid) {
+			let url: string;
+			if (!this.student._id) {
+				console.log(this.student._id);
+				url = 'student';
+			} else {
+				url = 'student/update';
 			}
-		)
+			console.log(url)
+			this.service.postService(url, this.student).subscribe(
+				(res) => {
+					console.log(res);
+					this.loadStudents();
+					this.student = new Student();
+					studentForm.resetForm();
+				},
+				(err) => {
+					console.log(err);
+				}
+			)
+		}
 	}
 
 	/**
 	 * @author Diego.Perez.
 	 * @date 04/05/2020
 	 */
-	deleteStudent(value:Student) {
-		let url:string = 'student/delete';
+	deleteStudent(value: Student) {
+		let url: string = 'student/delete';
 		let data = {
 			"id": value._id
 		};
@@ -120,10 +123,15 @@ export class StudentsComponent implements OnInit {
 	 * @autho Diego.Perez.
 	 * @date 04/01/2020
 	 */
-	editStudent(value:Student) {
-		
-		this.student = value;
-		
+	editStudent(value: Student) {
+		this.student = new Student();
+		this.student._id = value._id;
+		this.student.classes = value.classes;
+		this.student.email = value.email;
+		this.student.firstName = value.firstName;
+		this.student.lastName = value.lastName;
+		this.student.programId = value.programId;
+		this.student.studentId = value.studentId;
 	}
 
 	/**

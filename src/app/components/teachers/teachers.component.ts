@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { GeneralService } from 'src/app/general.service';
 
+declare const $: any;
 @Component({
   selector: 'app-teachers',
   templateUrl: './teachers.component.html',
@@ -12,7 +13,6 @@ export class TeachersComponent implements OnInit {
   constructor(private service: GeneralService) { }
   public teachersList;
   private collection: string = "teachers";
-  //This hard code will be substituted by data from the database as soon as Diego finishes his part.
   public courseList: string[] = ["CSD_1030_1", "CSD_1165_1", "CSD_2224_1", "CSD_2206_1", "CSD_1113_1", "CSD_1134_1", "CSD_2103_1", "EAP_3106_1"]
 
   //teacher form fields
@@ -47,26 +47,37 @@ export class TeachersComponent implements OnInit {
    * @author Deivid Mafra.
    */
   onSubmitTeacher(selectedTeacher) {
-    if (typeof selectedTeacher.value._id === undefined || selectedTeacher.value._id === null) {
-      this.service.postService(this.collection, selectedTeacher.value)
-        .subscribe(newTeacher => this.teachersList.push(newTeacher));
+    if (selectedTeacher.valid) {
 
-    } else {
-      var teacher = {
-        "_id": selectedTeacher.value._id,
-        "teacherId": selectedTeacher.value.teacherId,
-        "firstName": selectedTeacher.value.firstName,
-        "lastName": selectedTeacher.value.lastName,
-        "email": selectedTeacher.value.email,
-        "courses": selectedTeacher.value.courses
+
+      if (typeof selectedTeacher.value._id === undefined || selectedTeacher.value._id === null) {
+        this.service.postService(this.collection, selectedTeacher.value)
+          .subscribe(() => {
+            this.getTeachers();
+            $("mat-form-field").removeClass('mat-form-field-invalid');
+          });
+        // .subscribe(newTeacher => this.teachersList.push(newTeacher));
+
+      } else {
+        var teacher = {
+          "_id": selectedTeacher.value._id,
+          "teacherId": selectedTeacher.value.teacherId,
+          "firstName": selectedTeacher.value.firstName,
+          "lastName": selectedTeacher.value.lastName,
+          "email": selectedTeacher.value.email,
+          "courses": selectedTeacher.value.courses
+        }
+        let index = this.teachersList.indexOf(this.teachersList.find(({ _id }) => _id === selectedTeacher.value._id))
+
+        this.service.putService(this.collection, selectedTeacher.value._id, teacher)
+          .subscribe(() => {
+            this.teachersList[index] = teacher;
+            $("mat-form-field").removeClass('mat-form-field-invalid');
+          });
       }
-      let index = this.teachersList.indexOf(this.teachersList.find(({ _id }) => _id === selectedTeacher.value._id))
 
-      this.service.putService(this.collection, selectedTeacher.value._id, teacher)
-        .subscribe(() => this.teachersList[index] = teacher)
+      this.teacherForm.reset();
     }
-
-    this.teacherForm.reset();
   }
 
   /**
@@ -99,5 +110,12 @@ export class TeachersComponent implements OnInit {
         error => console.log(error)
       );
     this.teachersList.splice(index, 1);
+  }
+
+  clearForm() {
+    this.teacherForm.reset();
+    setTimeout(() => {
+      $("mat-form-field").removeClass('mat-form-field-invalid');
+    }, 500);
   }
 }

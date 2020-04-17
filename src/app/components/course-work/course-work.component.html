@@ -1,0 +1,97 @@
+<div class="col-xl-10 col-md-10 col-sm-10 mx-auto mt-5">
+
+  <div class="card">
+    <div class="card-header">
+      <span class="badge badge-pill badge-info text-wrap text-uppercase">Course Work Form</span>
+    </div>
+
+    <div class="card-body col-xl-12 col-md-12 col-sm-12 mx-auto">
+
+      <form [formGroup]="courseWorkForm" (ngSubmit)="onSubmitCourseWork(courseWorkForm)" id="courseWorkForm">
+
+        <div class="row">
+
+          <div class="col-xl-4 col-md-4 col-sm-4">
+            <!-- <mat-form-field class="full-width" hidden>
+              <input matInput placeholder="Course Work Id" formControlName="_id">
+            </mat-form-field> -->
+
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Course Work Name" name="fName" formControlName="name" required>
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-4 col-md-4 col-sm-4">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Course Work Percentage" formControlName="percentage">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-4 col-md-4 col-sm-4">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Course" formControlName="course">
+            </mat-form-field>
+          </div>
+
+          <div class="col-xl-4 col-md-4 col-sm-4">
+
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Due Date" formControlName="dueDate">
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <!-- <div class="row float-right"> -->
+        <div class="col-xl-4 col-md-4 col-sm-4 float-right d-flex justify-content-end pr-0">
+          <button type="submit" class="btn btn-primary btn-form">Submit</button>
+          <button type="button" class="btn btn-danger ml-1 btn-form" (click)="clearForm()">Clear</button>
+        </div>
+        <!-- </div> -->
+
+      </form>
+    </div>
+  </div>
+
+
+  <div class="card mt-5">
+    <div class="card-header">
+      <span class="badge badge-pill badge-info text-wrap text-uppercase">Course Work List</span>
+    </div>
+    <div class="card-body justify-content-center">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <!-- <th scope="col">ID</th> -->
+            <th scope="col">Name</th>
+            <th scope="col">Percentage/Weight</th>
+            <th scope="col">Course</th>
+            <th scope="col">Due Date</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let coursew of courseWorkList">
+            <td hidden>{{coursew._id}}</td>
+            <td>{{coursew.name}}</td>
+            <td>{{coursew.percentage}}</td>
+            <td>{{coursew.course}}</td>
+            <td>{{coursew.dueDate}}</td>
+            <td>
+              <a class="material-icons edit mr-2" (click)="selectCourseWork(coursew)">
+                edit
+              </a>
+              <a class="material-icons delete" (click)="deleteCourseWork(coursew)">
+                delete
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer text-muted text-right">
+      Total: {{( courseWorkList)?.length}}
+    </div>
+  </div>
+
+</div>

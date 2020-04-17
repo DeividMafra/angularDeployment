@@ -63,31 +63,39 @@ export class ClassesComponent implements OnInit {
 	 * @date 04/05/2020
 	 */
 	editClass(value: Classes) {
-		this.classes = value;
+		this.classes = new Classes();
+		this.classes._id = value._id;
+		this.classes.classId = value.classId;
+		this.classes.className = value.className;
+		this.classes.programs = value.programs;
 	}
 
 	/**
 	 * @author Diego.Perez.
 	 * @date 04/05/2020
 	 */
-	onSubmit() {
-		let url: string;
-		if (!this.classes._id) {
-			url = 'class';
-		} else {
-			url = 'class/update';
-		}
+	onSubmit(studentForm) {
 
-		this.service.postService(url, this.classes).subscribe(
-			(res) => {
-				console.log(res)
-				this.fillClasses();
-				this.classes = new Classes();
-			},
-			(err) => {
-				console.log(err)
+		if (studentForm.valid) {
+
+			let url: string;
+			if (!this.classes._id) {
+				url = 'class';
+			} else {
+				url = 'class/update';
 			}
-		)
+
+			this.service.postService(url, this.classes).subscribe(
+				(res) => {
+					console.log(res)
+					this.fillClasses();
+					this.classes = new Classes();
+				},
+				(err) => {
+					console.log(err)
+				}
+			)
+		}
 	}
 
 	/**

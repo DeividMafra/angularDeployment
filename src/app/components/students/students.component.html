@@ -1,108 +1,107 @@
 <div class="col-xl-10 col-md-10 col-sm-10 mx-auto mt-5">
-	<div class="card">
-		<div class="card-header">
-			<span class="badge badge-pill badge-info text-wrap text-uppercase">Student</span>
-		</div>
-		<div class="card-body">
+  <div class="card">
+    <div class="card-header">
+      <span class="badge badge-pill badge-info text-wrap text-uppercase">Student Form</span>
+    </div>
+    <div class="card-body">
 
-			<form #studentForm="ngForm" (ngSubmit)="onSubmit()">
-				<div class="row">
-					<div class="col-xl-3 col-md-3 col-sm-12  ml-auto mx-auto">
-						<mat-form-field class="full-width">
-							<input matInput placeholder="Student Id" name="studentId" [(ngModel)]="student.studentId">
-						</mat-form-field>
-					</div>
+      <form #studentForm="ngForm" (ngSubmit)="onSubmit(studentForm)" id="studentForm">
+        <div class="row">
+          <div class="col-xl-4 col-md-4 col-sm-12">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Student Id" name="studentId" [(ngModel)]="student.studentId" required>
+            </mat-form-field>
+          </div>
 
-					<div class="col-xl-3 col-md-3 col-sm-12  ml-auto mx-auto">
-						<mat-form-field class="full-width">
-							<input matInput placeholder="First Name" name="firstName" [(ngModel)]="student.firstName">
-						</mat-form-field>
-					</div>
+          <div class="col-xl-4 col-md-4 col-sm-12">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="First Name" name="firstName" [(ngModel)]="student.firstName">
+            </mat-form-field>
+          </div>
 
-					<div class="col-xl-3 col-md-3 col-sm-12  ml-auto mx-auto">
-						<mat-form-field class="full-width">
-							<input matInput placeholder="Last Name" name="lastName" [(ngModel)]="student.lastName">
-						</mat-form-field>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xl-3 col-md-3 col-sm-12  ml-auto mx-auto">
-						<mat-form-field class="full-width">
-							<input matInput placeholder="Email" name="email" [(ngModel)]="student.email">
-						</mat-form-field>
-					</div>
+          <div class="col-xl-4 col-md-4 col-sm-12">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Last Name" name="lastName" [(ngModel)]="student.lastName">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-4 col-md-4 col-sm-12">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Email" name="email" [(ngModel)]="student.email">
+            </mat-form-field>
+          </div>
 
-					<div class="col-xl-3 col-md-3 col-sm-12  ml-auto mx-auto">
-						<mat-form-field class="full-width">
-							<mat-select placeholder="Select Program" name="programId" [(ngModel)]="student.programId">
-								<mat-option *ngFor="let program of programList" [value]="program.programId">
-									{{program.programName}}
-								</mat-option>
-							</mat-select>
-						</mat-form-field>
-					</div>
+          <div class="col-xl-4 col-md-4 col-sm-12">
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Select Program" name="programId" [(ngModel)]="student.programId">
+                <mat-option *ngFor="let program of programList" [value]="program.programId">
+                  {{program.programName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
-					<div class="col-xl-3 col-md-3 col-sm-12  ml-auto mx-auto">
-						<mat-form-field class="full-width">
-							<mat-select placeholder="Select Classes" multiple name="classes"
-								[(ngModel)]="student.classes">
-								<mat-option *ngFor="let clas of classesList" [value]="clas.classId">
-									{{clas.className}}
-								</mat-option>
-							</mat-select>
-						</mat-form-field>
-					</div>
-				</div>
+          <div class="col-xl-4 col-md-4 col-sm-12">
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Select Classes" multiple name="classes" [(ngModel)]="student.classes">
+                <mat-option *ngFor="let clas of classesList" [value]="clas.classId">
+                  {{clas.className}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
 
-				<div class="col-xl-4 col-md-4 col-sm-4 float-right ml-auto mx-auto">
-					<button type="button" class="btn btn-danger float-right mx-1" (click)="clearForm()">Clear</button>
-					<button type="submit" class="btn btn-primary float-right mx-1">Submit</button>					
-				</div>
-			</form>
+        <div class="col-xl-4 col-md-4 col-sm-4 float-right d-flex justify-content-end pr-0">
+          <button type="submit" class="btn btn-primary btn-form">Submit</button>
+          <button type="button" class="btn btn-danger ml-1 btn-form" (click)="clearForm()">Clear</button>
+        </div>
+      </form>
 
 
-		</div>
-	</div>
+    </div>
+  </div>
 
-	<div class="card mt-5">
-		<div class="card-header">
-			<span class="badge badge-pill badge-info text-wrap text-uppercase">Students List</span>
-		</div>
-		<div class="card-body justify-content-center">
-			<table class="table table-striped table-hover">
-				<thead>
-					<tr>
-						<th scope="col">Student Id</th>
-						<th scope="col">Name</th>
-						<th scope="col">Last Name</th>
-						<th scope="col">Email</th>
-						<th scope="col">Program</th>
-						<th scope="col">Classes</th>
-						<th scope="col">Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr *ngFor="let student of studentList">
-						<th scope="row">{{student.studentId}}</th>
-						<td>{{student.firstName}}</td>
-						<td>{{student.lastName}}</td>
-						<td>{{student.email}}</td>
-						<td>{{student.programId}}</td>
-						<td>
-							<h6 *ngFor="let clas of student.classes">
-								{{clas}}
-							</h6>
-						</td>
-						<td>
-							<a class="btn btn-icon text-primary" (click)="editStudent(student)">
-								<i class="material-icons">edit</i>
-							</a>
-							<a class="btn btn-icon text-danger" (click)="deleteStudent(student)">
-								<i class="material-icons">delete_forever</i>
-							</a>
-						</td>
-					</tr>
-					<!-- <tr>
+  <div class="card mt-5">
+    <div class="card-header">
+      <span class="badge badge-pill badge-info text-wrap text-uppercase">Students List</span>
+    </div>
+    <div class="card-body justify-content-center">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Student Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Program</th>
+            <th scope="col">Classes</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of studentList">
+            <th scope="row">{{student.studentId}}</th>
+            <td>{{student.firstName}}</td>
+            <td>{{student.lastName}}</td>
+            <td>{{student.email}}</td>
+            <td>{{student.programId}}</td>
+            <td>
+              <h6 *ngFor="let clas of student.classes">
+                {{clas}}
+              </h6>
+            </td>
+            <td>
+              <a class="btn btn-icon text-primary" (click)="editStudent(student)">
+                <i class="material-icons">edit</i>
+              </a>
+              <a class="btn btn-icon text-danger" (click)="deleteStudent(student)">
+                <i class="material-icons">delete_forever</i>
+              </a>
+            </td>
+          </tr>
+          <!-- <tr>
 						<th scope="row">c0746800</th>
 						<td>Diego</td>
 						<td>Perez</td>
@@ -114,11 +113,11 @@
 							<span class="material-icons delete">delete_forever</span>
 						</td>
 					</tr> -->
-				</tbody>
-			</table>
-		</div>
-		<div class="card-footer text-muted text-right">
-			Total: {{studentList.length}}
-		</div>
-	</div>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer text-muted text-right">
+      Total: {{studentList.length}}
+    </div>
+  </div>
 </div>

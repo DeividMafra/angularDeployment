@@ -2,12 +2,12 @@
 
   <div class="card">
     <div class="card-header">
-      <span class="badge badge-pill badge-info text-wrap text-uppercase">Add Teacher</span>
+      <span class="badge badge-pill badge-info text-wrap text-uppercase">Teacher Form</span>
     </div>
 
     <div class="card-body col-xl-12 col-md-12 col-sm-12 mx-auto">
 
-      <form [formGroup]="teacherForm" (ngSubmit)="onSubmitTeacher(teacherForm)" class="example-form">
+      <form [formGroup]="teacherForm" (ngSubmit)="onSubmitTeacher(teacherForm)" id="teacherForm">
 
         <div class="row">
           <div class="col-xl-4 col-md-4 col-sm-4">
@@ -16,7 +16,7 @@
             </mat-form-field>
 
             <mat-form-field class="full-width">
-              <input matInput placeholder="Teacher Id" formControlName="teacherId">
+              <input matInput placeholder="Teacher Id" name="tId" formControlName="teacherId" required>
             </mat-form-field>
           </div>
 
@@ -37,7 +37,7 @@
         <div class="row">
           <div class="col-xl-4 col-md-4 col-sm-4">
             <mat-form-field class="full-width">
-              <input matInput placeholder="E-mail" formControlName="email">
+              <input type="email" matInput placeholder="E-mail" formControlName="email">
             </mat-form-field>
           </div>
 
@@ -52,7 +52,8 @@
           </div>
 
           <div class="col-xl-4 col-md-4 col-sm-4 float-right d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary btn-form">Submit</button>
+            <button type="button" class="btn btn-danger ml-1 btn-form" (click)="clearForm()">Clear</button>
           </div>
         </div>
 
@@ -82,7 +83,9 @@
             <td class="align-middle">{{teacher.firstName}}</td>
             <td class="align-middle">{{teacher.lastName}}</td>
             <td class="align-middle">{{teacher.email}}</td>
-            <td class="line-breaker">{{teacher.courses.join(' ')}}</td>
+            <td class="line-breaker">
+              <h6 *ngFor="let course of teacher.courses">{{course}}</h6>
+            </td>
             <td class="align-middle">
               <a class="material-icons edit mr-2" (click)="selectTeacher(teacher)">
                 edit

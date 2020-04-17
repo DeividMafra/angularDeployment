@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GeneralService } from 'src/app/general.service';
 import { FormGroup, FormControl } from '@angular/forms';
 
+declare const $: any;
 @Component({
   selector: 'app-programs',
   templateUrl: './programs.component.html',
@@ -43,31 +44,44 @@ export class ProgramsComponent implements OnInit {
    * @author Deivid Mafra.
    */
   onSubmitProgram(selectedProgram) {
-    if (typeof selectedProgram.value._id === undefined || selectedProgram.value._id === null) {
-      this.service.postService(this.collection, selectedProgram.value)
-        .subscribe(newProgram => this.programsList.push(newProgram));
 
-    } else {
-      var program = {
-        "_id": selectedProgram.value._id,
-        "programId": selectedProgram.value.programId,
-        "programName": selectedProgram.value.programName,
-        "room": selectedProgram.value.room
+    if (selectedProgram.valid) {
+
+
+      if (typeof selectedProgram.value._id === undefined || selectedProgram.value._id === null) {
+
+        this.service.postService(this.collection, selectedProgram.value)
+          .subscribe(() => {
+            this.getPrograms();
+            selectedProgram.reset();
+            $("mat-form-field").removeClass('mat-form-field-invalid');
+          });
+
+      } else {
+        var program = {
+          "_id": selectedProgram.value._id,
+          "programId": selectedProgram.value.programId,
+          "programName": selectedProgram.value.programName,
+          "room": selectedProgram.value.room
+        }
+        let index = this.programsList.indexOf(this.programsList.find(({ _id }) => _id === selectedProgram.value._id))
+
+        this.service.putService(this.collection, selectedProgram.value._id, program)
+          .subscribe(() => {
+            this.programsList[index] = program;
+            $("mat-form-field").removeClass('mat-form-field-invalid');
+          })
       }
-      let index = this.programsList.indexOf(this.programsList.find(({ _id }) => _id === selectedProgram.value._id))
 
-      this.service.putService(this.collection, selectedProgram.value._id, program)
-        .subscribe(() => this.programsList[index] = program)
+      this.programForm.reset();
     }
-
-    this.programForm.reset();
   }
 
   /**
    * @remarks Function responsible for getting the data from the list and populate the form allowing the end user edit it;
    * @date 04/01/2020;
    * @param program - The program selected;
-   * @author Deivid Mafra.
+   * @author Deivid Mafra. 
    */
   selectProgram(program) {
     this.programForm.get('_id').setValue(program._id);
@@ -91,5 +105,13 @@ export class ProgramsComponent implements OnInit {
         error => console.log(error)
       );
     this.programsList.splice(index, 1);
+  }
+
+  clearForm() {
+    this.programForm.reset();
+    setTimeout(() => {
+      $("mat-form-field").removeClass('mat-form-field-invalid');
+    }, 500);
+
   }
 }

@@ -2,12 +2,12 @@
 
   <div class="card">
     <div class="card-header">
-      <span class="badge badge-pill badge-info text-wrap text-uppercase">Add Program</span>
+      <span class="badge badge-pill badge-info text-wrap text-uppercase">Program Form</span>
     </div>
 
     <div class="card-body col-xl-12 col-md-12 col-sm-12 mx-auto">
 
-      <form [formGroup]="programForm" (ngSubmit)="onSubmitProgram(programForm)" class="example-form">
+      <form [formGroup]="programForm" (ngSubmit)="onSubmitProgram(programForm)" id="programForm">
 
         <div class="row">
           <div class="col-xl-4 col-md-4 col-sm-4">
@@ -16,7 +16,7 @@
             </mat-form-field>
 
             <mat-form-field class="full-width">
-              <input matInput placeholder="Program Id" formControlName="programId">
+              <input matInput placeholder="Program Id" name="idProgrma" formControlName="programId" required>
             </mat-form-field>
           </div>
 
@@ -36,8 +36,9 @@
         </div>
 
         <div class="row float-right">
-          <div class="col-xl-4 col-md-4 col-sm-4 float-right">
-            <button type="submit" class="btn btn-primary">Submit</button>
+          <div class="col-xl-4 col-md-4 col-sm-4 float-right d-flex">
+            <button type="submit" class="btn btn-primary btn-form">Submit</button>
+            <button type="button" class="btn btn-danger btn-form ml-1" (click)="clearForm()">Clear</button>
           </div>
         </div>
 
