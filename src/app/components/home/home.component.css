@@ -27,7 +27,9 @@ img {
     display: none;
   }
 
-  .btn.btn-primary {}
+  .btn.btn-primary {
+    padding: 0% 10% 0% 10%;
+  }
 
   h1 {
     text-align: center;
@@ -41,8 +43,56 @@ img {
     font-size: 1.25rem;
   }
 
+  h4 {
+    font-size: .75rem;
+  }
+
+  h5 {
+    min-height: 66%;
+  }
+
   ul {
-    display: block !important;
+    /* display: block !important; */
+    list-style-type: none;
+    margin-left: -25px;
+  }
+
+  li {
+    margin-right: 1rem !important;
+  }
+
+  .myBadges {
+    white-space: normal !important;
+    color: #fff;
+    padding-right: 0.6em;
+    padding-left: 0.6em;
+    border-radius: 10rem;
+    display: inline-block;
+    padding: 0.5em 1em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    /* white-space: nowrap; */
+    vertical-align: baseline;
+    /* border-radius: 0.25rem; */
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .colorFg {
+    background-color: #13aa52;
+  }
+
+  .colorG {
+    background-color: #026e00;
+  }
+
+  .colorB {
+    background-color: #187abf;
+  }
+
+  .colorR {
+    background-color: #df0e0e;
   }
 
 
