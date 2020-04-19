@@ -73,7 +73,9 @@ export class TeachersComponent implements OnInit {
           .subscribe(() => {
             this.teachersList[index] = teacher;
             $("mat-form-field").removeClass('mat-form-field-invalid');
-          });
+
+          },
+            (err) => console.log(err));
       }
 
       this.teacherForm.reset();
